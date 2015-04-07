@@ -1,7 +1,7 @@
 <?php
 
 function db_connect($db) {
-	$dbcnx = @mysql_connect('localhost', 'root', 'college');
+	$dbcnx = @mysql_connect('localhost', 'scheduler', '$cheduler321');
 	if (!$dbcnx)
   		exit('<p>Unable to connect to the database server at this time.</p>'.mysql_error());
 
