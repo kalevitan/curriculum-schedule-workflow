@@ -81,19 +81,19 @@ if($_GET) {
 	 $days = '';
 }
 $database = 'curschedule';
-$table_names = array('fall2015cu');
-$page_title = 'Fall 2015 Curriculum Schedule';
+$table_names = array('summer2015cu');
+$page_title = 'Summer 2015 Curriculum Schedule';
 
 
-$conn = db_connect($database);
-if (!$conn) {
-	echo "no database connection >> ";
-	} else {
-	//line used to identify what table the script is connecting to. It is commented out in a live production
-	//echo "database connection returned >> ";
-	//blank line used in a live production model
-	echo "";
-}
+// $conn = db_connect($database);
+// if (!$conn) {
+// 	echo "no database connection >> ";
+// 	} else {
+// 	//line used to identify what table the script is connecting to. It is commented out in a live production
+// 	//echo "database connection returned >> ";
+// 	//blank line used in a live production model
+// 	echo "";
+// }
 
 ?>
 <!DOCTYPE html>
@@ -189,11 +189,6 @@ $path = "./xml_output/" . $file_name;
 $file_top = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><'.$table_names[0].' xmlns:aid="http://ns.adobe.com/AdobeInDesign/4.0/">';
 $file_bottom = "</".$table_names[0].">";
 
-$fp = fopen($path, 'w');
-	fwrite($fp, $file_top);
-	fclose($fp);
-
-
 	$XHTMLcourses = query_to_XHTML_three($courses, $value); //call xml generation function
 	echo '<textarea rows="75" cols="175">';
 	print $XHTMLcourses;
@@ -201,13 +196,13 @@ $fp = fopen($path, 'w');
 
   $XHTMLcourses = str_replace('&nbsp;', '&#160;', $XHTMLcourses);
 
-$fp = fopen($path, 'a');
+$fp = fopen($path, 'c');
+  fwrite($fp, $file_top);
 	fwrite($fp, $XHTMLcourses);
 	fwrite($fp, $file_bottom);
 	fclose($fp);
 
 // and close the database connection
 unset($value);
-mysql_close($conn);
 
 ?>
